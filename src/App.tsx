@@ -1,70 +1,44 @@
 import { useState } from "react";
-
-type Box = {
-  code: string;
-  status: "AKTIV" | "DEFECT" | "LOADED" | "DISPOSED";
-  defects?: string[];
-};
+import { mockBoxes } from "./core/mock/boxes";
+import { Box } from "./core/types/box";
+import DashboardScreen from "./modules/module7/screens/DashboardScreen";
 
 export default function App() {
-  const [boxes, setBoxes] = useState<Box[]>([]);
-  const [input, setInput] = useState("");
+  const [boxes, setBoxes] = useState<Box[]>(mockBoxes);
 
-  const scanBox = () => {
-    if (!input) return;
-
-    setBoxes((prev) => [
-      ...prev,
-      { code: input, status: "AKTIV", defects: [] },
-    ]);
-
-    setInput("");
-  };
-
-  const markDefect = (code: string) => {
+  const markDefect = (id: string) => {
     setBoxes((prev) =>
-      prev.map((b) =>
-        b.code === code ? { ...b, status: "DEFECT" } : b
+      prev.map((box) =>
+        box.id === id
+          ? {
+              ...box,
+              status: "DEFECT",
+            }
+          : box
       )
     );
   };
 
-  const loadBox = (code: string) => {
+  const loadBox = (id: string) => {
     setBoxes((prev) =>
-      prev.map((b) =>
-        b.code === code ? { ...b, status: "LOADED" } : b
+      prev.map((box) =>
+        box.id === id
+          ? {
+              ...box,
+              status: "LOADED",
+            }
+          : box
       )
     );
   };
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Modul 7 Test System</h1>
-
-      <input
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Kistencode"
+      <DashboardScreen
+        boxes={boxes}
+        onDefect={markDefect}
+        onLoad={loadBox}
       />
-      <button onClick={scanBox}>Scannen</button>
-
-      <h2>Kisten</h2>
-
-      {boxes.map((b) => (
-        <div key={b.code} style={{ marginBottom: 10 }}>
-          <b>{b.code}</b> — {b.status}
-
-          <div>
-            <button onClick={() => markDefect(b.code)}>
-              Defekt
-            </button>
-
-            <button onClick={() => loadBox(b.code)}>
-              Verladen
-            </button>
-          </div>
-        </div>
-      ))}
     </div>
   );
 }
