@@ -1,4 +1,4 @@
-import { Box } from "../types/box";
+import type { Box } from "../types/box";
 
 export const mockBoxes: Box[] = [
   {

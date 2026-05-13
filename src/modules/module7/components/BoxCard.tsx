@@ -1,4 +1,4 @@
-import { Box } from "../../../core/types/box";
+import type { Box } from "../../../core/types/box";
 import StatusBadge from "./StatusBadge";
 
 type Props = {
