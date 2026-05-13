@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { mockBoxes } from "./core/mock/boxes";
-import { Box } from "./core/types/box";
+import type { Box } from "./core/types/box";
 import DashboardScreen from "./modules/module7/screens/DashboardScreen";
 
 export default function App() {

@@ -1,5 +1,5 @@
-import { Box } from "../../../core/types/box";
-import BoxCard from "../components/BoxCard";
+import type { Box } from "../../../core/types/box";
+import  BoxCard from "../components/BoxCard";
 
 type Props = {
   boxes: Box[];
